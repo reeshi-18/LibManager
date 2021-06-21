@@ -1,0 +1,85 @@
+{% extends "templates/base.twig" %}
+
+{% block topbar %}
+	{% include "templates/adminTopbar.twig" %}
+{% endblock %}
+
+
+{% block body %}
+
+
+	<div class="home">
+        <div class="viewuser">
+            <div class="admin">
+
+                <h2>Admin</h2><br>
+                <div class="content">
+    
+                    <table class="usertable">
+                        <tr>
+                            <th>Sl no.</th>
+                            <th>Name</th>
+                            <th>Phone</th>
+                            <th>Email</th>
+                        </tr>
+                        {% if admins %}
+                            {% set c = 1 %}
+                            {% for admin in admins %}
+                                <tr>
+                                    <td>{{c}}</td>
+                                    <td>{{admin.name}}</td>
+                                    <td>{{admin.phone}}</td>
+                                    <td>{{admin.email}}</td>
+                                </tr>
+                                {% set c = c+1 %}
+                            {% endfor %}
+    
+                        {% else %}
+                            <tr>
+                                <td colspan="3">No admins found</td>
+                            </tr>
+                        {% endif %}
+                    </table>
+    
+                </div>
+    
+            </div>
+    
+            <div class="user">
+    
+                <h2>Users</h2><br>
+                <div class="content">
+                    <table class="usertable">
+                        <tr>
+                            <th>Sl no.</th>
+                            <th>Name</th>
+                            <th>Phone</th>
+                            <th>Email</th>
+                        </tr>
+                        {% if users %}
+                            {% set c = 1 %}
+                            {% for user in users %}
+                                <tr>
+                                    <td>{{c}}</td>
+                                    <td>{{user.name}}</td>
+                                    <td>{{user.phone}}</td>
+                                    <td>{{user.email}}</td>
+                                </tr>
+                                {% set c = c+1 %}
+                            {% endfor %}
+    
+                        {% else %}
+                            <tr>
+                                <td colspan="4" style="text-align: center;">No users found</td>
+                            </tr>
+                        {% endif %}
+                    </table>
+    
+                </div>
+    
+            </div>
+        </div>
+		
+	</div>
+
+{% endblock %}

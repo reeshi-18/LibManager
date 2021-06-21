@@ -1,0 +1,68 @@
+{% extends "templates/base.twig" %}
+
+{% block topbar %}
+	{% include "templates/homeTopbar.twig" %}
+{% endblock %}
+
+{% block body %}
+
+	<div class="home">
+		<div class="container">
+
+			<div class="text_container">
+				<h2>Login</h2><br>
+			</div>
+
+			<form action="/login" method="POST">
+				<div class="form">
+					<label> Enter email <br>
+						<input name="email" type="text" placeholder="Enter email" required>
+					</label><br><br>
+					<label> Enter password <br>
+						<input name="pwd" type="password" placeholder="Enter password" required>
+					</label><br><br>
+					<button type="submit" class="submitbtn">Submit</button>
+				</div><br>
+				<div class="bottom">
+					<button type="button" class="cancelbtn" onclick="redirect()">Cancel</button>
+					
+				</div>
+			</form>
+
+		</div>
+
+
+		<br><br>
+
+		<div class="alert" style="bottom:30px;">
+			{% if notExists %}
+				<em>
+					<strong>Email-id does not exist</strong>
+				</em>
+			{% endif %}
+
+			{% if wrongPwd %}
+				<em>
+					<strong>User id does not match with password</strong>
+				</em>
+			{% endif %}
+
+			{% if pending %}
+				<em>
+					<strong>Admin approval pending</strong>
+				</em>
+			{% endif %}
+
+		</div>
+
+	</div>
+
+	<script>
+    function redirect()
+    {
+        window.location.href="/";
+    }
+</script>
+
+
+{% endblock %}

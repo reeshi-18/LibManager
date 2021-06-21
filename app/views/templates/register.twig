@@ -1,0 +1,97 @@
+{% extends "templates/base.twig" %}
+
+{% block topbar %}
+	{% include "templates/homeTopbar.twig" %}
+{% endblock %}
+
+{% block body %}
+
+	<div class="home">
+
+		<div class="container">
+
+			<h2>Register</h2>
+			<h4>Fill this form create an account</h4><br>
+
+			<form action="/register" method="POST">
+
+				<div class="form">
+
+					<label>
+						Select your role
+						<br>
+						<div class="role">
+							<input name="role" type="radio" value="admin" required>
+							<p>Admin</p>
+							<br>
+							<input name="role" type="radio" value="user" required>
+							<p>User</p>
+						</div>
+					</label>
+
+
+					<label>
+						Enter name
+						<br>
+						<input name="name" type="text" placeholder="Enter name" required>
+					</label><br>
+
+					<label>
+						Enter phone
+						<br>
+						<input name="phone" type="text" placeholder="Enter phone number" required>
+					</label><br>
+
+					<label>
+						Enter email
+						<br>
+						<input name="email" type="text" placeholder="Enter email" required>
+					</label><br>
+
+					<label>
+						Enter password
+						<br>
+						<input name="pwd" type="password" placeholder="Enter password" required>
+					</label><br>
+
+					<div class="clearfix">
+						<button type="submit">Submit</button>
+						<button type="button" class="cancelbtn" onclick="redirect()">Cancel</button>
+					</div>
+
+
+				</div>
+
+
+			</form>
+
+		</div>
+
+
+		<br><br>
+
+		<div class="alert" style="bottom:20px;">
+			{% if posted %}
+
+				<em>
+					<strong>Sent for admin approval</strong>
+				</em>
+
+			{% endif %}
+
+			{% if exists %}
+				<em>
+					<strong>Email id already exists!!</strong>
+				</em>
+			{% endif %}
+		</div>
+
+	</div>
+
+	<script>
+		function redirect() {
+window.location.href = "/";
+}
+	</script>
+
+{% endblock %}

@@ -1,0 +1,77 @@
+{% extends "templates/base.twig" %}
+
+{% block topbar %}
+	{% include "templates/adminTopbar.twig" %}
+{% endblock %}
+
+{% block body %}
+
+	<div class="home">
+		<h2>Issue Books</h2>
+
+		<div class="books">
+			<table class="viewtable">
+				<tr>
+					<th>Order ID</th>
+					<th>Email ID</th>
+					<th>Name</th>
+					<th>ISBN no.</th>
+					<th>Book Name</th>
+					<th>Quantity</th>
+					<th>Accept</th>
+					<th>Reject</th>
+				</tr>
+				{% if issues %}
+					{% for issue in issues %}
+						<tr>
+							<td>{{issue.oid}}</td>
+							<td>{{issue.email}}</td>
+							<td>{{issue.name}}</td>
+							<td>{{issue.isbn}}</td>
+							<td>{{issue.bname}}</td>
+							<td>{{issue.quantity}}</td>
+							<td>
+								<button id="{{issue.oid}}" class="approve" onclick="accept(this.id)" style="background-color:#04AA6D;">Accept</button>
+							</td>
+							<td>
+								<button id="{{issue.oid}}" class="approve" onclick="reject(this.id)" style="background-color: #f44336;">Reject</button>
+							</td>
+						</tr>
+
+					{% endfor %}
+				{% else %}
+					<tr>
+						<td colspan="8" style="text-align: center;">No issue requests to show</td>
+					</tr>
+
+				{% endif %}
+
+			</table>
+		</div>
+	</div>
+	<script>
+		function accept(bid) {
+$.ajax({
+type: "POST",
+url: "/issuebook",
+data: {
+id: bid,
+status: "accept"
+}
+});
+location.reload(true);
+}
+function reject(bid) {
+$.ajax({
+type: "POST",
+url: "/issuebook",
+data: {
+id: bid,
+status: "reject"
+}
+});
+location.reload(true);
+}
+	</script>
+
+{% endblock %}

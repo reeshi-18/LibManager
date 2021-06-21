@@ -1,0 +1,58 @@
+{% extends "templates/base.twig" %}
+
+{% block topbar %}
+	{% include "templates/adminTopbar.twig" %}
+{% endblock %}
+
+
+{% block body %}
+
+
+	<div class="home">
+        <div class="heading">
+            <h3>Books in library</h3>
+            <form method="POST" action="/viewBook" class="searchbar">
+                <input type="text" name="search_book" placeholder="Enter name of book">
+                <button type="submit">Search</button>
+            </form>
+        </div><br><br>
+		<div class="books">
+            <table class="viewtable">
+                <tr>
+                    <th>Book name</th>
+                    <th>ISBN</th>
+                    <th>Author</th>
+                    <th>Genre</th>
+                    <th>Publisher</th>
+                    <th>Pages</th>
+                    <th>Quantity</th>
+                </tr>
+
+                {% if books %}
+                {% for book in books %}
+                    <tr>
+                        <td>{{book.bname}}</td>
+                        <td>{{book.isbn}}</td>
+                        <td>{{book.author}}</td>
+                        <td>{{book.genre}}</td>
+                        <td>{{book.publisher}}</td>
+                        <td>{{book.pages}}</td>
+                        {% if book.quantity %}
+                            <td>{{book.quantity}}</td>
+                        {% else %}
+                            <td>Out of Stock</td>
+                        {% endif %}
+                        
+                    </tr>
+                {% endfor %}
+
+                {% else %}
+                    <tr>
+                        <td colspan="7">No books to show</td>
+                    </tr>
+                {% endif %}
+            </table>
+        </div>
+	</div>
+
+{% endblock %}

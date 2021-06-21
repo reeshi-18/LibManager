@@ -1,0 +1,95 @@
+{% extends "templates/base.twig" %}
+
+{% block topbar %}
+	{% include "templates/userTopbar.twig" %}
+{% endblock %}
+
+
+{% block body %}
+
+
+	<div class="home">
+		<div class="heading">
+			<h3>Books in library</h3>
+			<form method="POST" action="/bookList" class="searchbar">
+				<input type="text" name="search_book" placeholder="Enter name of book">
+				<button type="submit">Search</button>
+			</form>
+		</div><br><br>
+		<div class="books">
+			<table class="viewtable">
+				<tr>
+					<th>Book name</th>
+					<th>ISBN</th>
+					<th>Author</th>
+					<th>Genre</th>
+					<th>Publisher</th>
+					<th>Pages</th>
+					<th>Quantity</th>
+					<th>Checkout</th>
+				</tr>
+
+				{% if books %}
+					{% for book in books %}
+						<tr>
+							<td>{{book.bname}}</td>
+							<td>{{book.isbn}}</td>
+							<td>{{book.author}}</td>
+							<td>{{book.genre}}</td>
+							<td>{{book.publisher}}</td>
+							<td>{{book.pages}}</td>
+							{% if book.quantity %}
+								<td>{{book.quantity}}</td>
+								<td><input type="checkbox" name="select" id="{{book.isbn}}"></td>
+							{% else %}
+								<td>Out of Stock</td>
+							{% endif %}
+
+						</tr>
+					{% endfor %}
+
+				{% else %}
+					<tr>
+						<td colspan="8" style="text-align: center;">No books to show</td>
+					</tr>
+				{% endif %}
+			</table>
+
+		</div>
+		<div class="checkout">
+			<button onclick="checktags()" method="POST" action="/checkout">Checkout</button>
+		</div>
+
+		<div class="alert" style="bottom:30px;">
+
+			{% if moreThanOne %}
+				<em>
+					<strong>Cannot issue more than one request for one book</strong>
+				</em>
+			{% endif %}
+
+		</div>
+
+	</div>
+
+	<script>
+		function checktags() {
+var books_checked = [];
+var checkbox = document.querySelectorAll('input[type=checkbox]:checked');
+for (var i = 0; i < checkbox.length; i++) {
+books_checked.push(checkbox[i].id);
+}
+
+$.ajax({
+type: "POST",
+url: "/checkout",
+data: {
+book: books_checked
+}
+});
+location.reload(true);
+// alert("Books sent for checkout: "+books_checked);
+}
+	</script>
+
+{% endblock %}

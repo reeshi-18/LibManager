@@ -1,0 +1,34 @@
+{% block iconbar %}
+	{% include "templates/icon.twig" %}
+{% endblock %}
+
+{% block navbar %}
+	<div class="navbar">
+		<ul class="menu">
+			<li class="items">
+				<a href='/admin'>Home</a>
+			</li>
+			<li class="items">
+				<a href='/viewuser'>View Users</a>
+			</li>
+			<li class="items">
+				<a href='/approveuser'>Approve User</a>
+			</li>
+			<li class="items">
+				<a href='/addbook'>Add Books</a>
+			</li>
+			<li class="items">
+				<a href='/viewbook '>View Books</a>
+			</li>
+			<li class="items">
+				<a href="/issuebook">Issue Books</a>
+			</li>
+			<li class="items">
+				<a href="/userlog">User Log</a>
+			</li>
+			<li class="items">
+				<a href='/logout'>Logout</a>
+			</li>
+		</ul>
+	</div>
+{% endblock %}

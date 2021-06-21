@@ -1,0 +1,75 @@
+{% extends "templates/base.twig" %}
+
+{% block topbar %}
+	{% include "templates/adminTopbar.twig" %}
+{% endblock %}
+
+{% block body %}
+
+<div class="home">
+    <h2>Approve User Requests</h2>
+
+    <div class="books">
+        <table class="viewtable">
+            <tr>
+                
+                <th>Name</th>
+                <th>Email ID</th>
+                <th>Phone number</th>
+                <th>Role</th>
+                <th>Accept</th>
+                <th>Reject</th>
+            </tr>
+            {% if requests %}
+                {% for request in requests %}
+
+                <tr>
+                    <td>{{request.name}}</td>
+                    <td>{{request.email}}</td>
+                    <td>{{request.phone}}</td>
+                    <td>{{request.role}}</td>
+                    <td><button id="{{request.email}}" class="approve" onclick="accept(this.id)" style="background-color: rgb(8, 143, 60);">Accept</button></td>
+                    <td><button id="{{request.email}}" class="approve" onclick="reject(this.id)" style="background-color: rgb(187, 17, 40);">Reject</button></td>
+                </tr>
+                    
+                {% endfor %}
+
+                {% else %}
+                <tr>
+                    <td colspan="7" style="text-align: center;">No user approval requests pending</td>
+                </tr>
+            {% endif %}
+
+        </table>
+    </div>
+</div>
+<script>
+    function accept(email)
+    {
+        $.ajax({
+            type: "POST",
+            url: "/approveuser",
+            data: {
+            email: email,
+            status: "accept"
+            }
+            });
+        location.reload(true);
+    }
+
+    function reject(email)
+    {
+        $.ajax({
+            type: "POST",
+            url: "/approveuser",
+            data: {
+            email: email,
+            status: "reject"
+            }
+            });
+        location.reload(true);
+    }
+
+
+</script>
+{% endblock %}

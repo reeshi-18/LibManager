@@ -1,0 +1,107 @@
+{% extends "templates/base.twig" %}
+
+{% block topbar %}
+	{% include "templates/adminTopbar.twig" %}
+{% endblock %}
+
+{% block body %}
+
+	<div class="home">
+
+		<div class="addbook_container">
+
+			<h2>Add Book</h2>
+			<h4>Fill details of the book here</h4><br>
+
+			<form action="/addBook" method="POST">
+
+				<div class="form">
+
+					<label>
+						Enter book name
+						<br>
+						<input name="name" type="text" placeholder="Enter book name" required>
+					</label><br>
+
+
+					<label>
+						Enter ISBN number
+						<br>
+						<input name="isbn" type="text" placeholder="Enter ISBN number" required>
+					</label><br>
+
+					<label>
+						Enter author
+						<br>
+						<input name="author" type="text" placeholder="Enter author name" required>
+					</label><br>
+
+					<label>
+						Enter genre
+						<br>
+						<input name="genre" type="text" placeholder="Enter genre" required>
+					</label><br>
+
+					<label>
+						Enter publisher
+						<br>
+						<input name="publisher" type="text" placeholder="Enter publisher" required>
+					</label><br>
+
+					<label>
+						Enter number of pages
+						<br>
+						<input name="page" type="text" placeholder="Enter no. of pages" required>
+					</label><br>
+
+					<label>
+						Enter quantity
+						<br>
+						<input name="quantity" type="text" placeholder="Enter quantity" required>
+					</label><br>
+
+
+					<div class="clearfix">
+						<button type="submit">Submit</button>
+						<button type="button" class="cancelbtn" onclick="redirect()">Cancel</button>
+					</div>
+
+				</div>
+
+			</form>
+
+		</div>
+
+
+		<br><br>
+
+		<div class="alert">
+			{% if posted %}
+
+				<em>
+					<strong>Successfully added book to Library</strong>
+				</em>
+
+			{% endif %}
+
+			{% if exists %}
+
+				<em>
+					<strong>Book with same ISBN number already exists in Library</strong>
+				</em>
+
+			{% endif %}
+
+		</div>
+
+		<br><br>
+
+	</div>
+
+	<script>
+		function redirect() {
+			window.location.href = "/admin";
+		}
+	</script>
+
+{% endblock %}

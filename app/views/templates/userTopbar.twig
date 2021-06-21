@@ -1,0 +1,26 @@
+{% block iconbar %}
+	{% include "templates/icon.twig" %}
+{% endblock %}
+
+{% block navbar %}
+	<div class="navbar">
+		<ul class="menu">
+			<li class="items">
+				<a href='/user'>Home</a>
+			</li>
+			<li class="items">
+				<a href='/booklist'>Booklist</a>
+			</li>
+			<li class="items">
+				<a href='/userhist'>User History</a>
+			</li>
+			<li class="items">
+				<a href='/return'>Return Books</a>
+			</li>
+			<li class="items">
+				<a href='/logout'>Logout</a>
+			</li>
+		</ul>
+	</div>
+
+{% endblock %}

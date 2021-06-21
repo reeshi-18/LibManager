@@ -1,0 +1,57 @@
+{% extends "templates/base.twig" %}
+
+{% block topbar %}
+	{% include "templates/userTopbar.twig" %}
+{% endblock %}
+
+{% block body %}
+
+<div class="home">
+    <h2>Return Books</h2>
+
+    <div class="books">
+        <table class="viewtable">
+            <tr>
+                <th>Order ID</th>
+                <th>ISBN No.</th>
+                <th>Book Name</th>
+                <th>Issue Date</th>
+                <th>Return</th>
+            </tr>
+            {% if issues %}
+                {% for issue in issues %}
+
+                <tr>
+                    <td>{{issue.oid}}</td>
+                    <td>{{issue.isbn}}</td>
+                    <td>{{issue.bname}}</td>
+                    <td>{{issue.issue_date}}</td>
+                    <td><button id="{{issue.oid}}" class="approve" onclick="bookreturn(this.id)" style="background-color: rgb(28, 110, 131);">Return</button></td>
+                </tr>
+                    
+                {% endfor %}
+
+                {% else %}
+                <tr>
+                    <td colspan="5" style="text-align: center;">No books to return</td>
+                </tr>
+            {% endif %}
+
+        </table>
+    </div>
+</div>
+<script>
+    function bookreturn(bid)
+    {
+        $.ajax({
+            type: "POST",
+            url: "/return",
+            data: {
+            id: bid
+            }
+            });
+        location.reload(true);
+    }
+
+</script>
+{% endblock %}

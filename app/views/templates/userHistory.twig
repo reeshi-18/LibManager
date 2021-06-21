@@ -1,0 +1,57 @@
+{% extends "templates/base.twig" %}
+
+{% block topbar %}
+	{% include "templates/userTopbar.twig" %}
+{% endblock %}
+
+{% block body %}
+
+	<div class="home">
+		<h2>User History</h2>
+
+		<div class="books">
+			<table class="viewtable">
+				<tr>
+					<th>Order ID</th>
+					<th>ISBN No.</th>
+					<th>Book name</th>
+					<th>Status</th>
+					<th>Request Date</th>
+					<th>Issue Date</th>
+					<th>Return Date</th>
+				</tr>
+
+				{% if orders %}
+					{% for order in orders %}
+						<tr>
+							<td>{{order.oid}}</td>
+							<td>{{order.isbn}}</td>
+							<td>{{order.bname}}</td>
+							<td>{{order.status}}</td>
+							<td>{{order.request_date}}</td>
+							{% if order.issue_date %}
+								<td>{{order.issue_date}}</td>
+							{% else %}
+								<td>-</td>
+							{% endif %}
+							{% if order.return_date %}
+								<td>{{order.return_date}}</td>
+							{% else %}
+								<td>-</td>
+							{% endif %}
+
+
+						</tr>
+					{% endfor %}
+
+				{% else %}
+					<tr>
+						<td colspan="7" style="text-align: center;">No books to show</td>
+					</tr>
+				{% endif %}
+			</table>
+		</div>
+
+	</div>
+
+{% endblock %}
