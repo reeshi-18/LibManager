@@ -72,10 +72,20 @@ class Admin
 
     public static function accept($oid)
     {
+        //set status issued
         $db = \DB::get_instance();
         $date = date('Y-m-d');
         $stmt= $db->prepare("UPDATE book_stats SET status= 'Issued', issue_date= (?) WHERE oid= (?)");
         $stmt->execute([$date, $oid]);
+
+        //decrease quantity
+        $stmt2= $db->prepare("Select book.isbn from book left join book_stats on book.isbn= book_stats.isbn where book_stats.oid=(?)");
+        $stmt2->execute([$oid]);
+        $isbn= $stmt2->fetch();
+
+        //update
+        $update= $db->prepare("update book set quantity=quantity-1 where isbn= (?)");
+        $update->execute([$isbn[0]]);
     }
 
     public static function reject($oid)

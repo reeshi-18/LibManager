@@ -22,6 +22,5 @@ class BookReturn
     {
         $oid= $_POST["id"];
         \Model\User::bookReturn($oid);
-        \Model\Fetch::increase($oid);
     }
 }

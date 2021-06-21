@@ -7,17 +7,20 @@ class Checkout
 {
     public function post()
     {
-       $isbn = $_POST["book"][0];
+        $data = $_POST["book"];
 
-        $row = \Model\Fetch::findBook($isbn);
-        $email = $_SESSION["email"];
+        for ($i = 0; $i < count($data); $i++) {
+            $isbn = $data[$i];
+            $row = \Model\Fetch::findBook($isbn);
+            $email = $_SESSION["email"];
 
-        $check = \Model\User::checkIfReq($isbn, $email);
+            $check = \Model\User::checkIfReq($isbn, $email);
 
-        if ($check == 0) {
-            $status = "Requested";
+            if ($check == 0) {
+                $status = "Requested";
 
-            \Model\User::issueRequest($isbn, $email, $status);
+                \Model\User::issueRequest($isbn, $email, $status);
+            }
         }
     }
 }

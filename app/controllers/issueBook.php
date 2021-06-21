@@ -26,7 +26,6 @@ class IssueBook
         if($status== "accept")
         {
             \Model\Admin::accept($oid);
-            \Model\Fetch::decrease($oid);
         }
         else
         {

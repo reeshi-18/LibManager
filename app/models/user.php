@@ -42,9 +42,19 @@ class User
 
     public static function bookReturn($oid)
     {
+        //set status as return
         $db = \DB::get_instance();
         $date = date('Y-m-d');
         $stmt= $db->prepare("UPDATE book_stats SET status= 'Returned', return_date= (?) WHERE oid= (?)");
         $stmt->execute([$date, $oid]);
+
+        //increase quantity
+        $stmt2= $db->prepare("Select book.isbn from book left join book_stats on book.isbn= book_stats.isbn where book_stats.oid=(?)");
+        $stmt2->execute([$oid]);
+        $isbn= $stmt2->fetch();
+
+        //update
+        $update= $db->prepare("update book set quantity=quantity+1 where isbn= (?)");
+        $update->execute([$isbn[0]]);
     }
 }
