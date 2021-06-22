@@ -1,19 +1,16 @@
 <?php
 
 namespace Controller;
+
 class BookList
 {
     public function get()
     {
-        $loggedIn= \Controller\Utils::loggedInUser();
-        if ($loggedIn) {
+        \Controller\Utils::loggedInUser();
 
-            echo \View\Loader::make()->render("templates/bookList.twig", array(
-                "books" => \Model\Fetch::getAllBooks(),
-            ));
-        } else {
-            header("Location: /login");
-        }
+        echo \View\Loader::make()->render("templates/bookList.twig", array(
+            "books" => \Model\Fetch::getAllBooks(),
+        ));
     }
 
     public function post()

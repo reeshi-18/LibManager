@@ -6,25 +6,17 @@ class Utils
 {
     public static function loggedInUser()
     {
-        if((isset($_SESSION["email"]))&& $_SESSION["role"]=="user")
+        if(!((isset($_SESSION["email"]))&& $_SESSION["role"]=="user"))
         {
-            return true;
-        }
-        else
-        {
-            return false;
+            header("Location: /login");
         }
     }
 
     public static function loggedInAdmin()
     {
-        if((isset($_SESSION["email"]))&& $_SESSION["role"]=="admin")
+        if(!((isset($_SESSION["email"]))&& $_SESSION["role"]=="admin"))
         {
-            return true;
-        }
-        else
-        {
-            return false;
+            header("Location: /login");
         }
     }
 }

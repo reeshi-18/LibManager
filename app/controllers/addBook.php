@@ -1,16 +1,13 @@
 <?php
 
 namespace Controller;
+
 class AddBook
 {
     public function get()
     {
-        $loggedIn= \Controller\Utils::loggedInAdmin();
-        if ($loggedIn) {
-            echo \View\Loader::make()->render("templates/addBook.twig");
-        } else {
-            header("Location: /login");
-        }
+        \Controller\Utils::loggedInAdmin();
+        echo \View\Loader::make()->render("templates/addBook.twig");
     }
 
     public function post()

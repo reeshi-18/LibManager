@@ -15,7 +15,7 @@ class Login
         $pwd = $_POST["pwd"];
 
         $check = \Model\Auth::checkUserIfPresent($email);
-        if ($check === 0) {
+        if ($check == 0) {
             echo \View\Loader::make()->render("templates/login.twig", array(
                 "notExists" => true,
             ));
