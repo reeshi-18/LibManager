@@ -1,12 +1,12 @@
 <?php
 
 namespace Controller;
-session_start();
 class UserLog
 {
     public function get()
     {
-        if ((isset($_SESSION["email"])) && ($_SESSION["role"] == "admin"))
+        $loggedIn= \Controller\Utils::loggedInAdmin();
+        if ($loggedIn)
         {
             echo \View\Loader::make()->render("templates/userLog.twig", array(
                 "orders"=> \Model\Admin::userLog(),
@@ -17,5 +17,13 @@ class UserLog
             header("Location: /login");
         }
         
+    }
+
+    public function post()
+    {
+        $search= $_POST["search"];
+        echo \View\Loader::make()->render("templates/userLog.twig", array(
+            "orders"=> \Model\Admin::searchUserLog($search),
+        )); 
     }
 }

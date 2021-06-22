@@ -6,7 +6,8 @@ class UserHistory
 {
     public function get()
     {
-        if ((isset($_SESSION["email"])) && ($_SESSION["role"] == "user"))
+        $loggedIn= \Controller\Utils::loggedInUser();
+        if ($loggedIn)
         {
             echo \View\Loader::make()->render("templates/userHistory.twig", array(
                 "orders"=> \Model\User::userHistory($_SESSION["email"])

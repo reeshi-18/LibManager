@@ -7,7 +7,13 @@
 {% block body %}
 
 	<div class="home">
-		<h2>User Logs</h2>
+		<div class="heading">
+			<h3>User Logs</h3>
+			<form method="POST" action="/userlog" class="searchbar">
+				<input type="text" name="search" placeholder="Enter search">
+				<button type="submit">Search</button>
+			</form>
+		</div><br><br>
 
 		<div class="books">
 			<table class="viewtable">

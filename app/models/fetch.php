@@ -16,8 +16,8 @@ class Fetch
     public static function searchAllBooks($search)
     {
         $db= \DB::get_instance();
-        $stmt= $db->prepare("SELECT * from book WHERE bname LIKE (?)");
-        $stmt->execute([$search."%"]);
+        $stmt= $db->prepare("SELECT * from book WHERE (bname LIKE (?)) OR (isbn LIKE (?)) OR (author LIKE (?)) OR (genre LIKE (?)) OR (publisher LIKE (?))");
+        $stmt->execute([$search."%",$search."%",$search."%",$search."%",$search."%"]);
         $rows=$stmt->fetchAll();
         return $rows;
     }

@@ -16,7 +16,7 @@ class Checkout
 
             $check = \Model\User::checkIfReq($isbn, $email);
 
-            if ($check == 0) {
+            if ($check === 0) {
                 $status = "Requested";
 
                 \Model\User::issueRequest($isbn, $email, $status);

@@ -1,12 +1,12 @@
 <?php
 
 namespace Controller;
-session_start();
 class ApproveUser
 {
     public function get()
     {
-        if ((isset($_SESSION["email"])) && ($_SESSION["role"] == "admin"))
+        $loggedIn= \Controller\Utils::loggedInAdmin();
+        if ($loggedIn)
         {
             echo \View\Loader::make()->render("templates/approveUser.twig", array(
                 "requests"=> \Model\Admin::getUserRequest(),
@@ -24,7 +24,7 @@ class ApproveUser
         $email= $_POST["email"];
         $status= $_POST["status"];
 
-        if($status == "accept")
+        if($status === "accept")
         {
             \Model\Admin::approveUser($email);
         }

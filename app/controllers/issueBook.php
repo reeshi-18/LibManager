@@ -1,12 +1,12 @@
 <?php
 
 namespace Controller;
-session_start();
 class IssueBook
 {
     public function get()
     {
-        if ((isset($_SESSION["email"])) && ($_SESSION["role"]=="admin"))
+        $loggedIn= \Controller\Utils::loggedInAdmin();
+        if ($loggedIn)
         {
             echo \View\Loader::make()->render("templates/issue.twig", array(
                 "issues"=> \Model\Admin::getRequests(),
@@ -23,7 +23,7 @@ class IssueBook
         $oid = $_POST["id"];
         $status= $_POST["status"];
 
-        if($status== "accept")
+        if($status === "accept")
         {
             \Model\Admin::accept($oid);
         }

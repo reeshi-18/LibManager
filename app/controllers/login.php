@@ -1,7 +1,6 @@
 <?php
 
 namespace Controller;
-
 session_start();
 class Login
 {
@@ -16,7 +15,7 @@ class Login
         $pwd = $_POST["pwd"];
 
         $check = \Model\Auth::checkUserIfPresent($email);
-        if ($check == 0) {
+        if ($check === 0) {
             echo \View\Loader::make()->render("templates/login.twig", array(
                 "notExists" => true,
             ));
@@ -25,19 +24,18 @@ class Login
             
             $data = \Model\Auth::login($email);
 
-            if($data["stat"]=="Approved")
+            if($data["stat"]==="Approved")
             {
-                if (crypt($pwd, $data["pwd"]) == $data["pwd"]) {
-                    $_SESSION["name"] = $data["name"];
+                if (crypt($pwd, $data["pwd"]) === $data["pwd"]) {
                     $_SESSION["email"] = $data["email"];
                     $_SESSION["role"]= $data["role"];
     
-                    if ($_SESSION["role"] == "user") 
+                    if ($_SESSION["role"] === "user") 
                     {
                         header("Location: /user");
                     } 
                     
-                    if($_SESSION["role"] == "admin")
+                    if($_SESSION["role"] === "admin")
                     {
                         header("Location: /admin");
                     }

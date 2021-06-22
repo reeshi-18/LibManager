@@ -1,12 +1,12 @@
 <?php
 
 namespace Controller;
-session_start();
 class ViewBook
 {
     public function get()
     {
-        if ((isset($_SESSION["email"])) && ($_SESSION["role"] == "admin"))
+        $loggedIn= \Controller\Utils::loggedInAdmin();
+        if ($loggedIn)
         {
             echo \View\Loader::make()->render("templates/viewBook.twig", array(
                 "books"=> \Model\Fetch::getAllBooks(),
@@ -17,7 +17,6 @@ class ViewBook
             header("Location: /login");
         }
     }
-
     public function post()
     {
         $search= $_POST["search_book"];

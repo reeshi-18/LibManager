@@ -1,13 +1,12 @@
 <?php
 
 namespace Controller;
-
-session_start();
 class Admin
 {
     public function get()
     {
-        if ((isset($_SESSION["email"])) && ($_SESSION["role"] == "admin")) {
+        $loggedIn= \Controller\Utils::loggedInAdmin();
+        if ($loggedIn) {
             echo \View\Loader::make()->render("templates/admin.twig");
         } else {
             header("Location: /login");

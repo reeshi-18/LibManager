@@ -1,13 +1,12 @@
 <?php
 
 namespace Controller;
-
-session_start();
 class AddBook
 {
     public function get()
     {
-        if ((isset($_SESSION["email"])) && ($_SESSION["role"] == "admin")) {
+        $loggedIn= \Controller\Utils::loggedInAdmin();
+        if ($loggedIn) {
             echo \View\Loader::make()->render("templates/addBook.twig");
         } else {
             header("Location: /login");
@@ -26,7 +25,7 @@ class AddBook
 
         $check = \Model\Admin::checkBookExists($isbn);
 
-        if ($check == 0) {
+        if ($check === 0) {
             \Model\Admin::addBook($bname, $author, $genre, $isbn, $page, $publisher, $quantity);
             echo \View\Loader::make()->render("templates/addBook.twig", array(
                 "posted" => true,

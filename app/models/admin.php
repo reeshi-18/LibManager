@@ -95,4 +95,13 @@ class Admin
         $stmt->execute([$oid]);
     }
 
+    public static function searchUserLog($search)
+    {
+        $db= \DB::get_instance();
+        $stmt= $db->prepare("SELECT * FROM book_stats LEFT JOIN user ON book_stats.email=user.email LEFT JOIN book ON book_stats.isbn=book.isbn WHERE (user.email LIKE (?)) OR (name LIKE (?)) OR (book.isbn LIKE (?)) OR (book.bname LIKE (?)) OR (book_stats.status LIKE (?))");
+        $stmt->execute([$search."%",$search."%",$search."%",$search."%",$search."%"]);
+        $rows= $stmt->fetchAll();
+        return $rows;
+    }
+
 }
